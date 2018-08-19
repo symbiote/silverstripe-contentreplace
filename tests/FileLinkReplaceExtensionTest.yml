@@ -1,0 +1,5 @@
+SilverStripe\Assets\File:
+  example_file:
+    FileFilename: example.pdf
+    FileHash: 55b443b60176235ef09801153cca4e6da7494a0d
+    Name: example.pdf
