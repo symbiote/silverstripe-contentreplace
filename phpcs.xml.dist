@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="SS3">
+<ruleset name="SS4">
     <description>Coding standard for SilverStripe 4.x</description>
 
     <!-- Don't sniff third party libraries -->
