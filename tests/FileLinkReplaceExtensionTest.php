@@ -56,7 +56,6 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         $parser->register('file_link', [FileShortcodeProvider::class, 'handle_shortcode']);
 
         $fileSimpleLink = sprintf('[file_link,id=%d]', $testFile->ID);
-        $fileEnclosed  = sprintf('[file_link,id=%d]Example Content[/file_link]', $testFile->ID);
         $fileEnclosedWithHtml  = sprintf('<a href="[file_link,id=%d]" class="file" data-type="pdf" data-size="977 KB">Example Content</a>', $testFile->ID);
 
         $element = WYSIWYGElement::create();
@@ -80,11 +79,6 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         );
         $this->assertEquals(
             $htmlExpected,
-            $parser->parse($fileEnclosed),
-            'Test file extension and size are added after the enclosed shortcode link.'
-        );
-        $this->assertEquals(
-            $htmlExpected,
             $parser->parse($fileEnclosedWithHtml),
             'Test file extension and size are added after the enclosed shortcode + html link.'
         );
@@ -93,9 +87,6 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
     
         $this->assertEquals('', $parser->parse('[file_link]'), 'Test that invalid ID attributes are not parsed.');
         $this->assertEquals('', $parser->parse('[file_link,id="text"]'));
-        $this->assertEquals('', $parser->parse('[file_link]Example Content[/file_link]'));
-
         $this->assertEquals('', $parser->parse('[file_link,id="-1"]'), 'Short code is removed if file record is not present.');
-        $this->assertEquals('', $parser->parse('[file_link,id="-1"]Example Content[/file_link]'));
     }
 }
