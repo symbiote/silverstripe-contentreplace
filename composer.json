@@ -1,7 +1,7 @@
 {
-    "name": "symbiote/silverstripe-YOUR_MODULE_NAME",
-    "description": "YOUR DESCRIPTION HERE",
-    "type": "silverstripe-module",
+    "name": "jason-symbiote/silverstripe-contentreplace",
+    "description": "This module replaces certain tags in WYSIWYG content with SilverStripe templates.",
+    "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
         "symbiote"
@@ -13,26 +13,25 @@
             "homepage": "https://www.symbiote.com.au/"
         },
         {
-            "name": "YOUR NAME HERE",
-            "email": "YOUR_NAME_HERE@symbiote.com.au"
+            "name": "Jason Wang",
+            "email": "jason@symbiote.com.au"
         }
     ],
     "require": {
-        "silverstripe/framework": "^4.0",
-        "silverstripe/cms": "^3.1"
+        "silverstripe/framework": "^4.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0",
         "phpunit/phpunit": "^5.7"
     },
+    "scripts": {
+        "phpcbf": "phpcbf src/ tests/",
+        "phpcs": "phpcs src/ tests/"
+    },
     "autoload": {
         "psr-4": {
-            "Symbiote\\YOUR_MODULE_NAME\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Symbiote\\YOUR_MODULE_NAME\\Tests\\": "tests/"
+            "Symbiote\\silverstripe-contentreplace\\": "src/",
+            "Symbiote\\silverstripe-contentreplace\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -41,8 +40,7 @@
         },
         "expose": [
             "client/images"
-        ],
-        "installer-name": "YOUR_MODULE_NAME"
+        ]
     },
     "prefer-stable": true,
     "minimum-stability": "dev"

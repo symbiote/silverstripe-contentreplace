@@ -13,7 +13,8 @@ use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use Symbiote\ContentReplace\Model\WYSIWYGElement;
 
-class FileLinkReplaceExtensionTest extends FunctionalTest {
+class FileLinkReplaceExtensionTest extends FunctionalTest
+{
 
     protected static $fixture_file = 'FileLinkReplaceExtensionTest.yml';
 
@@ -31,7 +32,9 @@ class FileLinkReplaceExtensionTest extends FunctionalTest {
             $this->allFixtureIDs(File::class)
         );
         foreach ($fileIDs as $fileID) {
-            /** @var File $file */
+            /**
+             * @var File $file
+            */
             $file = DataObject::get_by_id(File::class, $fileID);
             $file->setFromString(str_repeat('x', 1000000), $file->getFilename());
         }
@@ -44,7 +47,8 @@ class FileLinkReplaceExtensionTest extends FunctionalTest {
         parent::tearDown();
     }
 
-    public function testFileLinkReplace() {
+    public function testFileLinkReplace()
+    {
 
         $testFile = $this->objFromFixture(File::class, 'example_file');
         
@@ -52,7 +56,6 @@ class FileLinkReplaceExtensionTest extends FunctionalTest {
         $parser->register('file_link', [FileShortcodeProvider::class, 'handle_shortcode']);
 
         $fileSimpleLink = sprintf('[file_link,id=%d]', $testFile->ID);
-        $fileEnclosed  = sprintf('[file_link,id=%d]Example Content[/file_link]', $testFile->ID);
         $fileEnclosedWithHtml  = sprintf('<a href="[file_link,id=%d]" class="file" data-type="pdf" data-size="977 KB">Example Content</a>', $testFile->ID);
 
         $element = WYSIWYGElement::create();
@@ -60,31 +63,30 @@ class FileLinkReplaceExtensionTest extends FunctionalTest {
         
         $element->setFileId($testFile->ID);
         $element->setLinkHTML($linkHtml);
-        $htmlExpected = $element->renderWith('WYSIWYGFileLink')->RAW();
+        $htmlExpected = $element
+            ->renderWith(
+                [
+                ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
+                ["type" => "Includes", 'WYSIWYGFileLink']
+                ]
+            )
+            ->RAW();
 
         $this->assertEquals(
-            $testFile->Link(), 
-            $parser->parse($fileSimpleLink), 
+            $testFile->Link(),
+            $parser->parse($fileSimpleLink),
             'Test that simple linking works.'
         );
         $this->assertEquals(
-            $htmlExpected, 
-            $parser->parse($fileEnclosed), 
-            'Test file extension and size are added after the enclosed shortcode link.'
-        );
-        $this->assertEquals(
-            $htmlExpected, 
-            $parser->parse($fileEnclosedWithHtml), 
+            $htmlExpected,
+            $parser->parse($fileEnclosedWithHtml),
             'Test file extension and size are added after the enclosed shortcode + html link.'
         );
 
         $testFile->delete();
-        
+    
         $this->assertEquals('', $parser->parse('[file_link]'), 'Test that invalid ID attributes are not parsed.');
         $this->assertEquals('', $parser->parse('[file_link,id="text"]'));
-        $this->assertEquals('', $parser->parse('[file_link]Example Content[/file_link]'));
-
         $this->assertEquals('', $parser->parse('[file_link,id="-1"]'), 'Short code is removed if file record is not present.');
-        $this->assertEquals('', $parser->parse('[file_link,id="-1"]Example Content[/file_link]'));
     }
 }
