@@ -51,7 +51,7 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
     {
 
         $testFile = $this->objFromFixture(File::class, 'example_file');
-        
+
         $parser = new ShortcodeParser();
         $parser->register('file_link', [FileShortcodeProvider::class, 'handle_shortcode']);
 
@@ -60,8 +60,8 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
 
         $element = WYSIWYGElement::create();
         $linkHtml = '<a href="/assets/FileLinkReplaceExtensionTest/55b443b601/example.pdf" class="file" data-type="pdf" data-size="977 KB">Example Content</a>';
-        
-        $element->setFileId($testFile->ID);
+
+        $element->setFile($testFile);
         $element->setLinkHTML($linkHtml);
         $htmlExpected = $element
             ->renderWith(
@@ -84,7 +84,7 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         );
 
         $testFile->delete();
-    
+
         $this->assertEquals('', $parser->parse('[file_link]'), 'Test that invalid ID attributes are not parsed.');
         $this->assertEquals('', $parser->parse('[file_link,id="text"]'));
         $this->assertEquals('', $parser->parse('[file_link,id="-1"]'), 'Short code is removed if file record is not present.');
