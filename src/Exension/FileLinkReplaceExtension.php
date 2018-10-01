@@ -6,6 +6,7 @@ use SilverStripe\Core\Extension;
 use Symbiote\ContentReplace\Model\WYSIWYGElement;
 use SilverStripe\Control\Controller;
 use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Assets\File;
 
 class FileLinkReplaceExtension extends Extension
 {
@@ -61,35 +62,29 @@ class FileLinkReplaceExtension extends Extension
             return $value;
         }
 
-        // Match the index of $fileIds
-        $index = 0;
-        return preg_replace_callback(
+        $files = File::get()->filter('ID', $fileIds);
+
+        $fileMap = [];
+        // create a map of URL to file object for later use
+        foreach ($files as $file) {
+            $fileMap[$file->getURL()] = $file;
+        }
+
+        $res = preg_replace_callback(
             // Match all a tags, even with nested child html tags
-            '#<a[\s]+[^>]+>(?:.(?!\<\/a\>))*.<\/a>#i',
-            function ($val) use ($fileIds, &$index) {
+            '#<a.*?href=\"(.*?)\".*?>(?:.(?!\<\/a\>))*.<\/a>#i',
+            function ($val) use ($fileMap) {
                 // $val[0] - the link HTML tag, eg: <a href="link">text</a>
                 $linkHtml = $val[0];
+                $href = $val[1];
+
                 $element = WYSIWYGElement::create();
 
-                if ($index >= sizeof($fileIds)) {
-                    return $linkHtml;
-                }
-                
-                $id = $fileIds[$index];
-                if (!$id) {
+                if (!isset($fileMap[$href])) {
                     return $linkHtml;
                 }
 
-                $element->setFileId((int)$id);
-                // check if the element has href attribute and
-                // it's linking to a File rather than an external url
-                $file = $element->getFile();
-                if (!$file) {
-                    return $linkHtml;
-                }
-
-                // Don't increment index unless it's a file link
-                $index += 1;
+                $element->setFile($fileMap[$href]);
 
                 // set default link HTML
                 $element->setLinkHTML($linkHtml);
@@ -104,5 +99,7 @@ class FileLinkReplaceExtension extends Extension
             },
             $value
         );
+
+        return $res;
     }
 }

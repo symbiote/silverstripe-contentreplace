@@ -15,19 +15,16 @@ class WYSIWYGElement extends ViewableData
     protected $linkHTML = "";
 
     /**
-     * @var int|null
+     * @var File|null
      */
-    protected $fileId = null;
+    protected $file = null;
 
     /**
      * @return File|null
      */
     public function getFile()
     {
-        $id = $this->getFileId();
-        return $id ?
-        File::get()->filter('ID', $id)->first() :
-        null;
+        return $this->file;
     }
 
     /**
@@ -47,14 +44,14 @@ class WYSIWYGElement extends ViewableData
         return $this->linkHTML;
     }
 
-    public function setFileId(int $id)
+    public function setFile(File $file)
     {
-        $this->fileId = $id;
+        $this->file = $file;
         return $this;
     }
 
     public function getFileId()
     {
-        return $this->fileId;
+        return $this->file->ID;
     }
 }
