@@ -37,10 +37,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
-        },
-        "expose": [
-            "client/images"
-        ]
+        }
     },
     "replace": {
 		"jason-symbiote/silverstripe-contentreplace": "self.version"
