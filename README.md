@@ -1,10 +1,10 @@
 # [Silverstripe Content Replace]
 
-[![Build Status](https://api.travis-ci.org/jason-symbiote/silverstripe-contentreplace.svg?branch=master)](https://travis-ci.org/jason-symbiote/silverstripe-contentreplace)
-[![Latest Stable Version](https://poser.pugx.org/jason-symbiote/silverstripe-contentreplace/version.svg)](https://github.com/jason-symbiote/silverstripe-contentreplace/releases)
-[![Latest Unstable Version](https://poser.pugx.org/jason-symbiote/silverstripe-contentreplace/v/unstable.svg)](https://packagist.org/packages/jason-symbiote/silverstripe-contentreplace)
-[![Total Downloads](https://poser.pugx.org/jason-symbiote/silverstripe-contentreplace/downloads.svg)](https://packagist.org/packages/jason-symbiote/silverstripe-contentreplace)
-[![License](https://poser.pugx.org/jason-symbiote/silverstripe-contentreplace/license.svg)](https://github.com/jason-symbiote/silverstripe-contentreplace/blob/master/LICENSE.md)
+[![Build Status](https://api.travis-ci.org/symbiote/silverstripe-contentreplace.svg?branch=master)](https://travis-ci.org/symbiote/silverstripe-contentreplace)
+[![Latest Stable Version](https://poser.pugx.org/symbiote/silverstripe-contentreplace/version.svg)](https://github.com/symbiote/silverstripe-contentreplace/releases)
+[![Latest Unstable Version](https://poser.pugx.org/symbiote/silverstripe-contentreplace/v/unstable.svg)](https://packagist.org/packages/symbiote/silverstripe-contentreplace)
+[![Total Downloads](https://poser.pugx.org/symbiote/silverstripe-contentreplace/downloads.svg)](https://packagist.org/packages/symbiote/silverstripe-contentreplace)
+[![License](https://poser.pugx.org/symbiote/silverstripe-contentreplace/license.svg)](https://github.com/symbiote/silverstripe-contentreplace/blob/master/LICENSE.md)
 
 This module replaces certain tags in WYSIWYG content with SilverStripe templates.
 
@@ -15,7 +15,7 @@ Currently supports:
 ## Composer Install
 
 ```
-composer require jason-symbiote/silverstripe-contentreplace:~1.0.0
+composer require symbiote/silverstripe-contentreplace:~2.0
 ```
 
 ## Requirements

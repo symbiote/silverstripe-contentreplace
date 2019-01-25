@@ -1,5 +1,5 @@
 {
-    "name": "jason-symbiote/silverstripe-contentreplace",
+    "name": "symbiote/silverstripe-contentreplace",
     "description": "This module replaces certain tags in WYSIWYG content with SilverStripe templates.",
     "type": "silverstripe-vendormodule",
     "keywords": [
@@ -36,9 +36,12 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     },
+    "replace": {
+		"jason-symbiote/silverstripe-contentreplace": "self.version"
+	},
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
