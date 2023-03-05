@@ -45,7 +45,7 @@ class FileLinkReplaceExtension extends Extension
                 // $val[1] - the file_link id, eg: 12
                 $this->fileIdsTmp[] = $val[1];
             },
-            $value
+            $value ?? ''
         );
     }
 
@@ -91,8 +91,8 @@ class FileLinkReplaceExtension extends Extension
                 return $element
                     ->renderWith(
                         [
-                        ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
-                        ["type" => "Includes", 'WYSIWYGFileLink']
+                            ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
+                            ["type" => "Includes", 'WYSIWYGFileLink']
                         ]
                     )
                     ->RAW();
