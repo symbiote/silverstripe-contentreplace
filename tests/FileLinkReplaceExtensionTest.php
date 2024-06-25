@@ -66,10 +66,8 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         $element->setLinkHTML($linkHtml);
         $htmlExpected = $element
             ->renderWith([
-                [
-                    ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
-                    ["type" => "Includes", 'WYSIWYGFileLink']
-                ]
+                ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
+                ["type" => "Includes", 'WYSIWYGFileLink']
             ])
             ->RAW();
 
