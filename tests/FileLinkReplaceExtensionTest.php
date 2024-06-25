@@ -1,6 +1,6 @@
 <?php
 
-namespace Symbiote\ContentReplace\Extension;
+namespace Symbiote\ContentReplace\Tests;
 
 use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Assets\File;
@@ -19,7 +19,7 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
     protected static $fixture_file = 'FileLinkReplaceExtensionTest.yml';
 
     // Taken from "vendor/silverstripe/assets/tests/php/Shortcodes/FileShortcodeProviderTest.php"
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->logInWithPermission('ADMIN');
@@ -41,7 +41,7 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
     }
 
     // Taken from "vendor/silverstripe/assets/tests/php/Shortcodes/FileShortcodeProviderTest.php"
-    public function tearDown()
+    protected function tearDown(): void
     {
         TestAssetStore::reset();
         parent::tearDown();
@@ -64,12 +64,10 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         $element->setFile($testFile);
         $element->setLinkHTML($linkHtml);
         $htmlExpected = $element
-            ->renderWith(
-                [
+            ->renderWith([
                 ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
                 ["type" => "Includes", 'WYSIWYGFileLink']
-                ]
-            )
+            ])
             ->RAW();
 
         $this->assertEquals(
