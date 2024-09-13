@@ -15,12 +15,12 @@ Currently supports:
 ## Composer Install
 
 ```
-composer require symbiote/silverstripe-contentreplace:~2.0
+composer require symbiote/silverstripe-contentreplace: ^2
 ```
 
 ## Requirements
 
-* SilverStripe 4.0+
+* SilverStripe 4 & 5
 
 ## Documentation
 

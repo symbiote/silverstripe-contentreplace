@@ -1,6 +1,6 @@
 <?php
 
-namespace Symbiote\ContentReplace\Extension;
+namespace Symbiote\ContentReplace\Tests;
 
 use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Assets\File;
@@ -19,7 +19,7 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
     protected static $fixture_file = 'FileLinkReplaceExtensionTest.yml';
 
     // Taken from "vendor/silverstripe/assets/tests/php/Shortcodes/FileShortcodeProviderTest.php"
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->logInWithPermission('ADMIN');
@@ -37,11 +37,13 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
             */
             $file = DataObject::get_by_id(File::class, $fileID);
             $file->setFromString(str_repeat('x', 1000000), $file->getFilename());
+            $file->write();
+            $file->publishRecursive();
         }
     }
 
     // Taken from "vendor/silverstripe/assets/tests/php/Shortcodes/FileShortcodeProviderTest.php"
-    public function tearDown()
+    protected function tearDown(): void
     {
         TestAssetStore::reset();
         parent::tearDown();
@@ -49,7 +51,6 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
 
     public function testFileLinkReplace()
     {
-
         $testFile = $this->objFromFixture(File::class, 'example_file');
 
         $parser = new ShortcodeParser();
@@ -59,17 +60,15 @@ class FileLinkReplaceExtensionTest extends FunctionalTest
         $fileEnclosedWithHtml  = sprintf('<a href="[file_link,id=%d]" class="file" data-type="pdf" data-size="977 KB">Example Content</a>', $testFile->ID);
 
         $element = WYSIWYGElement::create();
-        $linkHtml = '<a href="/assets/FileLinkReplaceExtensionTest/55b443b601/example.pdf" class="file" data-type="pdf" data-size="977 KB">Example Content</a>';
+        $linkHtml = '<a href="/assets/FileLinkReplaceExtensionTest/example.pdf" class="file" data-type="pdf" data-size="977 KB">Example Content</a>';
 
         $element->setFile($testFile);
         $element->setLinkHTML($linkHtml);
         $htmlExpected = $element
-            ->renderWith(
-                [
+            ->renderWith([
                 ["type" => "Symbiote/ContentReplace", 'WYSIWYGFileLink'],
                 ["type" => "Includes", 'WYSIWYGFileLink']
-                ]
-            )
+            ])
             ->RAW();
 
         $this->assertEquals(

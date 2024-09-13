@@ -18,11 +18,11 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "^4.0"
+        "silverstripe/framework": "^4 || ^5"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.0",
-        "phpunit/phpunit": "^5.7"
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpunit/phpunit": "^9.6"
     },
     "scripts": {
         "phpcbf": "phpcbf src/ tests/",
@@ -30,8 +30,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Symbiote\\silverstripe-contentreplace\\": "src/",
-            "Symbiote\\silverstripe-contentreplace\\Tests\\": "tests/"
+            "Symbiote\\ContentReplace\\": "src/",
+            "Symbiote\\ContentReplace\\Tests\\": "tests/"
         }
     },
     "extra": {
